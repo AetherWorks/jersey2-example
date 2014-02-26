@@ -7,8 +7,6 @@ package com.aetherworks.example.jersey2.api;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.util.logging.Logger;
-
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -28,7 +26,6 @@ import com.aetherworks.example.jersey2.exception.InvalidRequestExceptionMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MockedSetApiTests extends JerseyTest {
-	private final static Logger LOGGER = Logger.getLogger(MockedSetApiTests.class.getName());
 
 	/**
 	 * Used to specify the format expected for the return type of the add call.
