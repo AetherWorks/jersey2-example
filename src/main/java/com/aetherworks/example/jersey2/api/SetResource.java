@@ -47,6 +47,7 @@ public class SetResource {
 	private SetCallHandler callHandler;
 
 	public SetResource() {
+		// Default constructor required for instantiation.
 	}
 
 	/**
