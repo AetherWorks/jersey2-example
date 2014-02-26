@@ -21,8 +21,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.aetherworks.example.jersey2.SetCallHandler;
 import com.aetherworks.example.jersey2.SetApplication;
+import com.aetherworks.example.jersey2.SetCallHandler;
 import com.aetherworks.example.jersey2.exception.InvalidRequestException;
 import com.aetherworks.example.jersey2.exception.InvalidRequestExceptionMapper;
 
@@ -72,7 +72,7 @@ public class SetResource {
 	 *         Rather than throwing a messy exception message to the caller, this is mapped to a cleaner HTTP exception,
 	 *         using the {@link InvalidRequestExceptionMapper} and a mapping specified in {@link SetApplication}.
 	 */
-	@PUT
+	@GET
 	@Path("/add/{value}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

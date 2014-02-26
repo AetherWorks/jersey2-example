@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.aetherworks.example.jersey2.api.SetResource;
+import com.aetherworks.example.jersey2.exception.InvalidRequestException;
 
 /**
  * The internals of the application, called by the {@link SetResource} to interact with internal application state.
@@ -15,7 +16,7 @@ import com.aetherworks.example.jersey2.api.SetResource;
 public class SetCallHandler {
 	private final Set<String> internalSet = new HashSet<>();
 
-	public boolean add(final String value) {
+	public boolean add(final String value) throws InvalidRequestException {
 		return internalSet.add(value);
 	}
 

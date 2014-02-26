@@ -13,8 +13,19 @@ import com.aetherworks.example.jersey2.exception.InvalidRequestExceptionMapper;
  */
 public class SetApplication extends ResourceConfig {
 
+	/**
+	 * This is the constructor called by the application server when loading the application (as specified by the
+	 * web.xml).
+	 */
 	public SetApplication() {
+		this(new SetCallHandler());
+	}
 
+	/**
+	 * This is the constructor called directly by unit tests. This allows us to pass in a mocked version of the
+	 * {@link SetCallHandler} to just test the functionality of the API and not the handler itself.
+	 */
+	public SetApplication(final SetCallHandler setCallHandler) {
 		/*
 		 * Register the mapping between internal exceptions and their outward facing messages.
 		 */
@@ -23,7 +34,7 @@ public class SetApplication extends ResourceConfig {
 		register(new AbstractBinder() {
 			@Override
 			protected void configure() {
-				bind(new SetCallHandler()).to(SetCallHandler.class);
+				bind(setCallHandler).to(SetCallHandler.class);
 			}
 		});
 
@@ -31,6 +42,5 @@ public class SetApplication extends ResourceConfig {
 		 * Specify where resource classes are located. These are the classes that constitute the API.
 		 */
 		packages(true, "com.aetherworks.example.jersey2.api");
-
 	}
 }
