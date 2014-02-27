@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -65,6 +66,19 @@ public class SetApiTests extends JerseyTest {
 		checkAddCallResponse(performAddCall("MyTest2"), true);
 		checkAddCallResponse(performAddCall("MyTest3"), true);
 		checkAddCallResponse(performAddCall("MyTest2"), false);
+	}
+
+	/**
+	 * Makes a call to {@link SetResource#addMultiple(Set)} and checks that the items were added.
+	 */
+	@Test
+	public void addMultipleSingleCall() throws InvalidRequestException {
+		final Set<String> valuesToStore = new HashSet<String>(Arrays.asList("a", "n", "g", "u", "s", "m", "a", "c"));
+
+		final Entity<Set<String>> requestBody = Entity.entity(valuesToStore, MediaType.APPLICATION_JSON_TYPE);
+		target("set/add").request(MediaType.APPLICATION_JSON_TYPE).put(requestBody);
+
+		checkGetCallResponse(performGetCall(), valuesToStore);
 	}
 
 	/**

@@ -103,6 +103,12 @@ If successful, we can then obtain the returned value:
 ```java
 assertEquals(returnValue, responseWrapper.readEntity(new GenericType<Boolean>() {}));
 ```
+The test `addMultipleSingleCall` shows an example of an API request with a message body (in this case a set of Strings), also showing how to package up this request parameter in the test:
+```java
+final Entity<Set<String>> requestBody = Entity.entity(valuesToStore, MediaType.APPLICATION_JSON_TYPE);
+target("set/add").request(MediaType.APPLICATION_JSON_TYPE).put(requestBody);
+```
+This example doesn't include any parameters that are non-standard Java types, but doing so is relatively easy. By default only the public fields in the class are serialized, and a default constructor is required, but the class doesn't have to implement serializable.
 	
 #### Additional Resources
 The following links are resources I found useful in writing this example. 

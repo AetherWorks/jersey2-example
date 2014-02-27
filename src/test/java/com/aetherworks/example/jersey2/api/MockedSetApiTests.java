@@ -42,7 +42,6 @@ public class MockedSetApiTests extends JerseyTest {
 	@Override
 	protected Application configure() {
 		setCallHandler = Mockito.mock(SetCallHandler.class);
-
 		return new SetApplication(setCallHandler);
 	}
 
