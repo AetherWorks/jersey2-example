@@ -36,8 +36,38 @@ This tells the servlet container where to look for the resource classes that for
 
 #### SetResource (API) Class
 This project implements an API which supports two calls to add a string to a set (`/set/add/<value` and `/set/add`, where many values can be added in the body of the request), and a single call to get all entries in the set (`/set/get`). The comments in this class explain the finer points of the annotations that are required, and how they can be used.
+The class definition is annotated (as shown below), which sets the base path of the API call to be `/set`. 
+```java
+@Path("/set")
+public class SetResource {
+``` 
+Then the methods in this class are further annotated to describe the calls under this path:
+```java
+@GET
+@Path("/add/{value}")
+@Produces(MediaType.APPLICATION_JSON)
+public Response addSingle(@Context final UriInfo headers, @PathParam("value") final String value) throws InvalidRequestException {
+```
+In this example, the full call to this method will be `/set/add/{value}`, where `value` is a variable that is mapped to the `value` parameter of the method as a result of the `@PathParam` annotation.
+We want the call to consume and produce a JSON response, so we specify this in the `@Produces` annotation. The marshalling to JSON is handled automatically, but we have to specify the marshaller dependency in the `pom.xml` file, as follows:
+```xml
+<dependency>
+	<groupId>com.fasterxml.jackson.jaxrs</groupId>
+	<artifactId>jackson-jaxrs-json-provider</artifactId>
+	<version>2.3.0</version>
+</dependency>
+```
+There are two methods which include the `/add` path, but they accept different numbers of inputs so there is no conflict.
 
-The class contains an `@Inject` annotation, which tells the container to inject a dependency into the `callHandler` field. If we look back at the `SetApplication` class, we can see that this value is injected by registering it with the application through the `register()` call.
+The class also contains an `@Inject` annotation, which tells the container to inject a dependency into the `callHandler` field. If we look back at the `SetApplication` class, we can see that this value is injected by registering it with the application through the `register()` call:
+```java
+register(new AbstractBinder() {
+	@Override
+	protected void configure() {
+		bind(setCallHandler).to(SetCallHandler.class);
+	}
+});
+```
 
 #### Unit Tests
 I've written two unit test classes. One, `SetApiTests` provides what are essentially end-to-end integration tests, which call the API and check that its operations perform as expected. The second, `MockedSetApiTests` provides an example of using mocking to test just the API calls themselves.
