@@ -1,7 +1,9 @@
 Jersey 2 Example
 ===============
 
-This repository contains a basic example of Jersey v2 in action, showing how to create a basic JSON REST API, and how to test it. 
+*For a more detailed description of this example please look at my [blog post on the AetherWorks blog](http://blog.aetherworks.com/2014/02/rest-api-with-jersey/).*
+
+This repository contains a basic example of Jersey v2 in action, showing how to create a basic JSON REST API, and how to test it.
 
 The example i'm using is of an API representing a set, which allows strings to be added through two different API calls, and which allows them to be requested through another API call.
 
