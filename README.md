@@ -81,6 +81,29 @@ Both test classes extends `JerseyTest`, which handles the heavy lifting of setti
 </dependency>
 ```
 
+In the `MockedSetApiTests` class, the `SetCallHandler`, which manages the logic behind the API call (and is injected) is mocked out:
+```java
+@Override
+protected Application configure() {
+	setCallHandler = Mockito.mock(SetCallHandler.class);
+	return new SetApplication(setCallHandler);
+}
+```
+The configure call is required by `JerseyTest` to properly configure the application, which in this case requires us to pass the mocked dependency so that it can be injected into the `SetResource`.
+
+In the tests themselves, the call to the API is relatively simple:
+```java
+final Response responseWrapper = target("set/add/" + value).request(MediaType.APPLICATION_JSON_TYPE).get();
+```
+This makes the API call and returns the result (whether it is a success or failure to the `responseWrapper`). This can then be queried to establish whether the call was successful (by getting the HTTP response code):
+```java
+assertEquals(Response.Status.OK.getStatusCode(), responseWrapper.getStatus());
+```
+If successful, we can then obtain the returned value:
+```java
+assertEquals(returnValue, responseWrapper.readEntity(new GenericType<Boolean>() {}));
+```
+	
 #### Additional Resources
 The following links are resources I found useful in writing this example. 
 
