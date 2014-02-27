@@ -22,14 +22,16 @@ This example will hopefully be useful if you're interested in one of the followi
  - Mocking calls used by our Jersey API.
  - Unmarshalling responses from a Jersey API.
 
- ### Reading the Code
+### Reading the Code
 This section describes how the code is structured at a high level. For more specific details on individual lines of code and methods, please read the comments within the relevant classes. 
- #### Core
+#### Core
 At the core of a Jersey application is the `pom.xml` file, which specifies all of the dependencies in the code, including Jersey itself, and the versions being used.
 The `web.xml` file specifies how your servlet is named, and where the main Jersey application class is -- the application class is used to start your Jersey servlet. 
 
 In this example our application class is called `SetApplication`. It registers bindings for a few classes, which we'll discuss later. The key call in this code is the following:
-    packages(true, "com.aetherworks.example.jersey2.api");
+```java
+packages(true, "com.aetherworks.example.jersey2.api");
+```
 This tells the servlet container where to look for the resource classes that form the API. In this case our resource class is called `SetResource`.
 
 #### SetResource (API) Class
@@ -41,11 +43,13 @@ The class contains an `@Inject` annotation, which tells the container to inject 
 I've written two unit test classes. One, `SetApiTests` provides what are essentially end-to-end integration tests, which call the API and check that its operations perform as expected. The second, `MockedSetApiTests` provides an example of using mocking to test just the API calls themselves.
 
 Both test classes extends `JerseyTest`, which handles the heavy lifting of setting up a servlet container and providing the API. To run correctly, `JerseyTest` requires a _test framework provider_, which is the servlet container used to run the test. In this example i've used the jetty container, where the dependency is specified in the `pom.xml` class with the following code:
-    <dependency>
-    	<groupId>org.glassfish.jersey.test-framework.providers</groupId>
-    	<artifactId>jersey-test-framework-provider-jetty</artifactId>
-    	<version>2.6</version>
-    </dependency>
+```xml
+<dependency>
+	<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+	<artifactId>jersey-test-framework-provider-jetty</artifactId>
+	<version>2.6</version>
+</dependency>
+```
 
 #### Additional Resources
 The following links are resources I found useful in writing this example. 
