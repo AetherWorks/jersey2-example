@@ -111,6 +111,24 @@ final Entity<Set<String>> requestBody = Entity.entity(valuesToStore, MediaType.A
 target("set/add").request(MediaType.APPLICATION_JSON_TYPE).put(requestBody);
 ```
 This example doesn't include any parameters that are non-standard Java types, but doing so is relatively easy. By default only the public fields in the class are serialized, and a default constructor is required, but the class doesn't have to implement serializable.
+
+#### How to Run
+To run this example in Eclipse for Java EE:
+
+1. Download / clone the code from GitHub.
+2. In Eclispe, go to File -> New -> Java Project
+3. Untick 'Use default location' and navigate to the path of the jersey2-example repository.
+4. Re-tick the 'Use default location' option, which sets up the project name as jersey2-example.
+5. Click finish to create the project.
+6. To run, either run the unit tests in JUnit, or right-click on the project and select Run as -> Run on Server.
+
+If you want to create your own eclipse project, you can follow [this example](http://examples.javacodegeeks.com/enterprise-java/rest/jersey/jersey-hello-world-example/), but note that this is for Jersey v1, so you need to adjust the options used in steps 3 and 5 (i'd compare them to the example in this repo).
+
+To run standalone (the previous steps are required):
+
+1. Right-click on the project, Export -> WAR File.
+2. Set the location to store the WAR file, and change the specified server runtime if necessary.
+3. Run the WAR in your favorite application server, or standalone with Jetty Runner.
 	
 #### Additional Resources
 The following links are resources I found useful in writing this example. 
